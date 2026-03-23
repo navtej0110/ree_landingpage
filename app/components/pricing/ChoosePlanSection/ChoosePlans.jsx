@@ -39,18 +39,18 @@ const tierCards = [
     },
 ];
 
-const individualPricing = [
-    {
-        title: "WEBSTORE",
-        items: ["Pay Once", "4% per Transactions"],
-        total: "4800 DKK",
-    },
-    {
-        title: "PLUG-IN",
-        items: ["Pay Once", "Connect your existing Webstore"],
-        total: "3200 DKK",
-    },
-];
+// const individualPricing = [
+//     {
+//         title: "WEBSTORE",
+//         items: ["Pay Once", "4% per Transactions"],
+//         total: "4800 DKK",
+//     },
+//     {
+//         title: "PLUG-IN",
+//         items: ["Pay Once", "Connect your existing Webstore"],
+//         total: "3200 DKK",
+//     },
+// ];
 
 const featureRows = [
     { label: "Your Webstore", cols: [false, true, false, false] },

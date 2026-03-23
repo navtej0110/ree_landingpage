@@ -2,6 +2,7 @@
 
 import { useState, useRef, useEffect } from "react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import ContactSlider from "./ContactSlider";
 import Image from "next/image";
 
@@ -35,6 +36,15 @@ const Header = () => {
   const [visible, setVisible] = useState(true);
   const dropdownRef = useRef(null);
   const lastScrollY = useRef(0);
+  const pathname = usePathname();
+
+  const scrollToHash = (e, hash) => {
+    if (pathname === "/") {
+      e.preventDefault();
+      const el = document.getElementById(hash);
+      if (el) el.scrollIntoView({ behavior: "smooth" });
+    }
+  };
 
   useEffect(() => {
     const handleScroll = () => {
@@ -180,13 +190,13 @@ const Header = () => {
               </li>
 
               <li className="cursor-pointer hover:text-black">
-                <a href="#">Our tools</a>
+                <Link href="/#tools" onClick={(e) => scrollToHash(e, "tools")}>Our tools</Link>
               </li>
               <li className="cursor-pointer hover:text-black">
                 <Link href="/pricing">Pricing</Link>
               </li>
               <li className="cursor-pointer hover:text-black">
-                <Link href="/#faq">FAQ</Link>
+                <Link href="/#faq" onClick={(e) => scrollToHash(e, "faq")}>FAQ</Link>
               </li>
             </ul>
 
@@ -274,13 +284,13 @@ const Header = () => {
               </li>
 
               <li className="list-none cursor-pointer hover:text-black">
-                <Link href="/#tools">Our tools</Link>
+                <Link href="/#tools" onClick={(e) => scrollToHash(e, "tools")}>Our tools</Link>
               </li>
               <li className="list-none cursor-pointer hover:text-black">
                 <Link href="/pricing">Pricing</Link>
               </li>
               <li className="list-none cursor-pointer hover:text-black">
-                <Link href="/#faq">FAQ</Link>
+                <Link href="/#faq" onClick={(e) => scrollToHash(e, "faq")}>FAQ</Link>
               </li>
               <button
                 onClick={() => {
