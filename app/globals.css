@@ -21,6 +21,22 @@
     background-clip: text;
   }
 
+  /* Gradient text with shimmer */
+  .gradient-text-shimmer {
+    background: linear-gradient(
+      90deg,
+      #7C3AED 0%,
+      #EC4899 33%,
+      #7C3AED 66%,
+      #EC4899 100%
+    );
+    background-size: 300% 100%;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    animation: shimmer 4s linear infinite;
+  }
+
   /* Gradient button utility */
   .gradient-btn {
     background: linear-gradient(90deg, #7C3AED, #EC4899);
@@ -36,6 +52,11 @@
     -ms-overflow-style: none;
     scrollbar-width: none;
   }
+}
+
+@keyframes shimmer {
+  0% { background-position: 100% 50%; }
+  100% { background-position: -100% 50%; }
 }
 
 @keyframes slideUp {
