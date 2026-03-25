@@ -55,6 +55,7 @@ const ToolsSection = () => {
       {/* Floating particles */}
       {ready && (
         <Particles
+          id="tools-particles"
           className="absolute inset-0 z-0"
           options={{
             fullScreen: false,
@@ -104,7 +105,7 @@ const ToolsSection = () => {
       <div className="max-w-[1040px] mx-auto relative z-10">
         <div className="text-center mb-[48px]">
           <p className="text-[20px] font-medium leading-[40px] text-white">
-            Our Tools
+            OUR TOOLS
           </p>
           <h2 className="text-white text-[30px] sm:text-[36px] md:text-[42px] font-bold leading-tight mb-[16px]">
             Ready to deploy. Proven in the field.

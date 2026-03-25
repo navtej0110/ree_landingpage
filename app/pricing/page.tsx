@@ -5,7 +5,6 @@ import GetBarcode from "../components/pricing/ChoosePlanSection/GetBarcode";
 import DarkSection from "../components/pricing/ChoosePlanSection/DarkSection";
 // import FeaturesSlider from "../components/pricing/FeaturesSlider";
 // import PricingCards from "../components/pricing/PricingCards";
-// import CalculatorSection from "../components/pricing/CalculaterSection";
 
 export default function PricingPage() {
   return (
@@ -18,7 +17,6 @@ export default function PricingPage() {
       </DarkSection>
       {/* <FeaturesSlider /> */}
       {/* <PricingCards /> */}
-      {/* <CalculatorSection /> */}
     </div>
   );
 }

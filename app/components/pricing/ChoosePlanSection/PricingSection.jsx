@@ -90,7 +90,7 @@ export default function PricingSection() {
                 <span className="inline-block text-[14px] font-medium text-purple-600 bg-purple-100/60 border border-purple-200/50 rounded-full px-5 py-2 mb-5">
                     Simple, transparent pricing
                 </span>
-                <h1 className="text-[34px] sm:text-[46px] font-bold text-[#1a1a1a] mb-3 leading-tight tracking-tight">Pricing</h1>
+                <h1 className="text-[34px] sm:text-[46px] font-bold text-[#1a1a1a] mb-3 leading-tight tracking-tight">PRICING</h1>
                 <p className="text-gray-500 text-[16px]">
                     Choose the perfect plan for your business. Scale as you grow.
                 </p>

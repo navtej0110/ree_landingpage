@@ -28,6 +28,7 @@ export default function PricingHero() {
         <section className="min-h-screen bg-[#050510] flex flex-col items-center justify-center px-6 pt-0 pb-16 md:pb-0 text-center relative overflow-hidden">
             {/* Floating particles */}
             {ready && <Particles
+                id="pricing-hero-particles"
                 className="absolute inset-0 z-0"
                 options={{
                     fullScreen: false,

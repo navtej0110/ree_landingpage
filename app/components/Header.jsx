@@ -25,7 +25,7 @@ const shCol2 = [
   { title: "Automatic Product Ad", desc: "", href: "#" },
   { title: "Automatic Market-Ready", desc: "", href: "#" },
   { title: "Prices", desc: "", href: "/pricing" },
-  { title: "Calculate savings", desc: "", href: "#" },
+  { title: "Calculate savings", desc: "", href: "#calculate" },
 ];
 const allShItems = [...shCol1, ...shCol2];
 
@@ -45,9 +45,9 @@ const arCol1 = [
   },
 ];
 const arCol2 = [
-  { title: "Calculator", desc: "Simply dummy text of the printing and typesetting", href: "#" },
+  { title: "Calculator", desc: "Simply dummy text of the printing and typesetting", href: "#calculate" },
   { title: "Pricing", desc: "Simply dummy text of the printing and typesetting", href: "/pricing" },
-  { title: "Calculate savings", desc: "", href: "#" },
+  { title: "Calculate savings", desc: "", href: "/#calculate" },
 ];
 const allArItems = [...arCol1, ...arCol2];
 
@@ -120,7 +120,7 @@ const Header = () => {
             </Link>
 
             {/* Desktop nav */}
-            <ul className="hidden md:flex items-center gap-[40px] text-gray-800 font-medium text-[16px]">
+            <ul className="hidden lg:flex items-center gap-[40px] text-gray-800 font-medium text-[16px]">
               {/* Secondhand retail desktop dropdown */}
               <li
                 ref={secondhandRef}
@@ -318,14 +318,14 @@ const Header = () => {
             {/* Desktop button */}
             <button
               onClick={() => setContactOpen(true)}
-              className="hidden md:block gradient-btn text-white px-[20px] py-[8px] rounded-full font-medium transition text-[16px] cursor-pointer"
+              className="hidden lg:block gradient-btn text-white px-[20px] py-[8px] rounded-full font-medium transition text-[16px] cursor-pointer"
             >
               Contact Us
             </button>
 
             {/* Hamburger — mobile only */}
             <button
-              className="md:hidden flex flex-col justify-center items-center gap-[5px] w-[32px] h-[32px] cursor-pointer"
+              className="lg:hidden flex flex-col justify-center items-center gap-[5px] w-[32px] h-[32px] cursor-pointer"
               onClick={() => setMenuOpen(!menuOpen)}
               aria-label="Toggle menu"
             >
@@ -343,7 +343,7 @@ const Header = () => {
 
           {/* Mobile dropdown menu */}
           {menuOpen && (
-            <div className="md:hidden px-[32px] pb-[20px] flex flex-col gap-[16px] text-gray-800 font-medium text-[16px]">
+            <div className="lg:hidden px-[32px] pb-[20px] flex flex-col gap-[16px] text-gray-800 font-medium text-[16px]">
               {/* Secondhand retail mobile */}
               <li className="list-none cursor-pointer hover:text-black">
                 <div
@@ -378,7 +378,7 @@ const Header = () => {
                         href="#"
                         key={item.title}
                         className="group block no-underline"
-                        onClick={() => setMobileSecondhandOpen(false)}
+                        onClick={() => { setMobileSecondhandOpen(false); setMenuOpen(false); }}
                       >
                         <p className="text-white font-semibold text-[14px] mb-[2px] group-hover:text-purple-400 transition-colors">
                           {item.title}
@@ -425,7 +425,7 @@ const Header = () => {
                         href={item.href || "#"}
                         key={item.title}
                         className="group block no-underline"
-                        onClick={() => setMobileRetailOpen(false)}
+                        onClick={() => { setMobileRetailOpen(false); setMenuOpen(false); }}
                       >
                         <p className="text-white font-semibold text-[14px] mb-[2px] group-hover:text-purple-400 transition-colors">
                           {item.title}
@@ -442,13 +442,13 @@ const Header = () => {
               </li>
 
               <li className="list-none cursor-pointer hover:text-black">
-                <Link href="/#tools" onClick={(e) => scrollToHash(e, "tools")}>Our tools</Link>
+                <Link href="/#tools" onClick={(e) => { scrollToHash(e, "tools"); setMenuOpen(false); }}>Our tools</Link>
               </li>
               <li className="list-none cursor-pointer hover:text-black">
-                <Link href="/pricing">Pricing</Link>
+                <Link href="/pricing" onClick={() => setMenuOpen(false)}>Pricing</Link>
               </li>
               <li className="list-none cursor-pointer hover:text-black">
-                <Link href="/#faq" onClick={(e) => scrollToHash(e, "faq")}>FAQ</Link>
+                <Link href="/#faq" onClick={(e) => { scrollToHash(e, "faq"); setMenuOpen(false); }}>FAQ</Link>
               </li>
               <button
                 onClick={() => {

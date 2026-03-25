@@ -1,6 +1,9 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { motion } from "framer-motion";
+import Particles, { initParticlesEngine } from "@tsparticles/react";
+import { loadSlim } from "@tsparticles/slim";
 
 function fmt(n) {
     return Math.round(n).toLocaleString("da-DK");
@@ -14,8 +17,8 @@ function SliderField({ label, min, max, step, value, display, onChange }) {
     return (
         <div>
             <div className="flex items-center justify-between mb-2">
-                <p className="text-[16px] text-[#444] font-normal">{label}</p>
-                <span className="text-[14px] font-semibold text-[#1a1a1a] min-w-[80px] text-right">
+                <p className="text-[16px] text-gray-300 font-normal">{label}</p>
+                <span className="text-[14px] font-semibold text-white min-w-[80px] text-right">
                     {display}
                 </span>
             </div>
@@ -28,8 +31,8 @@ function SliderField({ label, min, max, step, value, display, onChange }) {
                 onChange={(e) => onChange(Number(e.target.value))}
                 className="w-full h-[3px] rounded-full appearance-none cursor-pointer"
                 style={{
-                    background: `linear-gradient(to right, #9b8ecf ${((value - min) / (max - min)) * 100}%, #d1c9e8 ${((value - min) / (max - min)) * 100}%)`,
-                    accentColor: "#9b8ecf",
+                    background: `linear-gradient(to right, #a040dc ${((value - min) / (max - min)) * 100}%, #3a3350 ${((value - min) / (max - min)) * 100}%)`,
+                    accentColor: "#a040dc",
                 }}
             />
         </div>
@@ -39,12 +42,12 @@ function SliderField({ label, min, max, step, value, display, onChange }) {
 function ResultItem({ title, value, sub, barPct, numColor, barColor }) {
     return (
         <div>
-            <p className="text-[14px] text-[#888] mb-1">{title}</p>
+            <p className="text-[14px] text-white mb-1">{title}</p>
             <p className="text-[32px] sm:text-[36px] font-bold leading-none tracking-tight" style={{ color: numColor }}>
                 {value}
             </p>
-            <p className="text-[12px] mt-1" style={{ color: numColor, opacity: 0.75 }}>{sub}</p>
-            <div className="h-[3px] bg-[#e5e0f0] rounded-full mt-3 overflow-hidden">
+            <p className="text-[14px] mt-1" style={{ color: numColor, opacity: 0.75 }}>{sub}</p>
+            <div className="h-[3px] bg-[#2a2540] rounded-full mt-3 overflow-hidden">
                 <div
                     className="h-full rounded-full transition-all duration-700 ease-out"
                     style={{ width: `${barPct}%`, backgroundColor: barColor }}
@@ -60,6 +63,13 @@ export default function CalculatorSection() {
     const [revenue, setRevenue] = useState(50000);
     const [wage, setWage] = useState(200);
     const [mins, setMins] = useState(20);
+    const [ready, setReady] = useState(false);
+
+    useEffect(() => {
+        initParticlesEngine(async (engine) => {
+            await loadSlim(engine);
+        }).then(() => setReady(true));
+    }, []);
 
     const hrs = Math.round((products * mins) / 60);
     const labour = Math.round(((products * mins) / 60) * wage * people);
@@ -84,17 +94,63 @@ export default function CalculatorSection() {
     }
 
     return (
-        <section className="bg-[#f5f0e8] py-16 sm:py-20 px-4 sm:px-8 md:px-[6vw]">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-16 max-w-[900px] mx-auto items-start">
+        <section 
+        id="calculate"
+        className="bg-[#111111] py-16 sm:py-20 px-4 sm:px-8 md:px-[6vw] relative overflow-hidden">
+            {/* Floating particles */}
+            {ready && (
+                <Particles
+                    id="calculator-particles"
+                    className="absolute inset-0 z-0"
+                    options={{
+                        fullScreen: false,
+                        particles: {
+                            number: { value: 60 },
+                            color: { value: ["#a040dc", "#dc50a0"] },
+                            opacity: { value: { min: 0.2, max: 0.6 } },
+                            size: { value: { min: 1, max: 3 } },
+                            move: {
+                                enable: true,
+                                direction: "top",
+                                speed: { min: 0.3, max: 1 },
+                                outModes: { default: "out" },
+                            },
+                        },
+                        detectRetina: true,
+                    }}
+                />
+            )}
+
+            {/* Purple glow */}
+            <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[400px] bg-[radial-gradient(ellipse_at_center,_rgba(100,50,180,0.25)_0%,_transparent_70%)] pointer-events-none z-[1]" />
+
+            {/* Floating orbs */}
+            <motion.div
+                className="absolute w-[200px] h-[200px] rounded-full bg-purple-500/10 blur-[80px] top-[15%] left-[10%] pointer-events-none z-[1]"
+                animate={{ y: [0, -30, 0] }}
+                transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
+            />
+            <motion.div
+                className="absolute w-[300px] h-[300px] rounded-full bg-pink-500/10 blur-[100px] bottom-[10%] right-[8%] pointer-events-none z-[1]"
+                animate={{ y: [0, 25, 0] }}
+                transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
+            />
+            <motion.div
+                className="absolute w-[150px] h-[150px] rounded-full bg-violet-400/10 blur-[60px] top-[50%] right-[25%] pointer-events-none z-[1]"
+                animate={{ y: [0, -20, 0] }}
+                transition={{ duration: 5, repeat: Infinity, ease: "easeInOut", delay: 1 }}
+            />
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-16 max-w-[900px] mx-auto items-start relative z-10">
                 <div>
-                    <p className="text-[28px] font-medium leading-[40px] bg-gradient-to-r from-[#7c3aed] to-[#EC4899] bg-clip-text text-transparent uppercase mb-3">
+                    <p className="text-[28px] font-medium leading-[40px] gradient-text uppercase mb-3">
                         Cost calculator
                     </p>
-                    <h2 className="text-[26px] sm:text-[32px] font-bold text-[#1a1a1a] leading-snug mb-2">
+                    <h2 className="text-[26px] sm:text-[32px] font-bold text-white leading-snug mb-2">
                         How much is manual<br />
-                        work <em className="italic bg-gradient-to-r from-[#7c3aed] to-[#EC4899] bg-clip-text text-transparent pr-1 font-bold">costing you?</em>
+                        work <em className="italic gradient-text pr-1 font-bold">costing you?</em>
                     </h2>
-                    <p className="text-[16px] text-[#777] leading-relaxed mb-8">
+                    <p className="text-[16px] text-gray-400 leading-relaxed mb-8">
                         Adjust the sliders to match your store. The real cost of manual listing is usually much higher than expected.
                     </p>
 
@@ -108,15 +164,15 @@ export default function CalculatorSection() {
                 </div>
 
                 <div className="md:sticky md:top-10">
-                    <div className="bg-white rounded-[20px] overflow-hidden shadow-sm divide-y divide-[#f0eaf8]">
+                    <div className="bg-[#1a1a2e] rounded-[20px] overflow-hidden shadow-sm divide-y divide-[#2a2540]">
                         <div className="p-6">
                             <ResultItem
                                 title="Hours saved per month"
                                 value={hrs + " hrs"}
                                 sub={`Across ${people} people listing ${products} products`}
                                 barPct={barPct1}
-                                numColor="#7c3aed"
-                                barColor="#7c3aed"
+                                numColor="#a040dc"
+                                barColor="#a040dc"
                             />
                         </div>
 
@@ -126,8 +182,8 @@ export default function CalculatorSection() {
                                 value={fmt(labour) + " DKK"}
                                 sub={`At ${wage} DKK/hr · ${people} staff members`}
                                 barPct={barPct2}
-                                numColor="#3d2fa0"
-                                barColor="#3d2fa0"
+                                numColor="#7c3aed"
+                                barColor="#7c3aed"
                             />
                         </div>
 
@@ -137,15 +193,15 @@ export default function CalculatorSection() {
                                 value={"+" + fmt(revGain) + " DKK"}
                                 sub="~18% uplift from faster listings & auto-sync"
                                 barPct={barPct3}
-                                numColor="#1a8a6a"
-                                barColor="#1a8a6a"
+                                numColor="#EC4899"
+                                barColor="#EC4899"
                             />
                         </div>
 
                         <div className="p-6">
-                            <div className="bg-[#eeeaf8] rounded-[14px] px-5 py-4">
-                                <p className="text-[16px] font-semibold text-[#2d2260] mb-1">{insightHead}</p>
-                                <p className="text-[14px] text-[#5a4a7a] leading-relaxed">{insightBody}</p>
+                            <div className="bg-[#2a2540] rounded-[14px] px-5 py-4">
+                                <p className="text-[16px] font-semibold text-purple-300 mb-1">{insightHead}</p>
+                                <p className="text-[14px] text-white leading-relaxed">{insightBody}</p>
                             </div>
                         </div>
                     </div>
@@ -159,18 +215,18 @@ export default function CalculatorSection() {
                     height: 18px;
                     border-radius: 50%;
                     background: white;
-                    border: 2px solid #9b8ecf;
+                    border: 2px solid #a040dc;
                     cursor: pointer;
-                    box-shadow: 0 1px 4px rgba(0,0,0,0.15);
+                    box-shadow: 0 1px 4px rgba(0,0,0,0.3);
                 }
                 input[type=range]::-moz-range-thumb {
                     width: 18px;
                     height: 18px;
                     border-radius: 50%;
                     background: white;
-                    border: 2px solid #9b8ecf;
+                    border: 2px solid #a040dc;
                     cursor: pointer;
-                    box-shadow: 0 1px 4px rgba(0,0,0,0.15);
+                    box-shadow: 0 1px 4px rgba(0,0,0,0.3);
                 }
                 input[type=range] { -webkit-appearance: none; appearance: none; }
                 input[type=range]:focus { outline: none; }

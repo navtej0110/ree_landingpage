@@ -6,7 +6,9 @@ import ProcessSection from "./components/home/ProcessSection";
 import ToolsSection from "./components/home/ToolsSection";
 import TeamSection from "./components/home/TeamSection";
 import FAQSection from "./components/home/FAQSection";
+import HelpSection from "./components/home/HelpSection";
 import CTASection from "./components/home/CTASection";
+import CalculatorSection from "./components/pricing/CalculaterSection";
 
 export default function Home() {
   return (
@@ -17,6 +19,8 @@ export default function Home() {
       <ProblemCarousel />
       <ProcessSection />
       <ToolsSection />
+      <HelpSection />
+      <CalculatorSection/>
       <TeamSection />
       <FAQSection />
       <CTASection />
