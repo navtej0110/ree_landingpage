@@ -30,7 +30,7 @@ export default function HeroSection() {
         </h1>
 
         {/* Sub-copy */}
-        <p className="text-[clamp(12px,1.25vw,16px)] leading-[1.7] text-[#434343] max-w-[660px] mx-auto mb-[clamp(28px,4.5vw,44px)] font-normal">
+        <p className="text-[clamp(16px,1.25vw,16px)] leading-[1.7] text-[#434343] max-w-[660px] mx-auto mb-[clamp(28px,4.5vw,44px)] font-normal">
           We Are Retail, Fashion, Merchandising And Software Experts.{" "}
           We Find What Is Blocking Your Growth — Even The Problems You Don&apos;t See — And We Build Automations That Fix Them.
         </p>
@@ -62,7 +62,7 @@ export default function HeroSection() {
                   <div className="font-bold text-[clamp(22px,4vw,42px)] leading-[1.1] text-[#252525] mb-1 whitespace-nowrap">
                     {s.value}
                   </div>
-                  <div className="text-[clamp(10px,1.3vw,13.5px)] text-[#434343] leading-[1.4]">
+                  <div className="text-[clamp(14px,1.3vw,13.5px)] text-[#434343] leading-[1.4]">
                     {s.label}
                   </div>
                 </div>
