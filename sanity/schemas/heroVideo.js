@@ -49,13 +49,6 @@ export default defineType({
         "Video for mobile (max 10MB, 720x1280). Compress at handbrake.fr or freeconvert.com before uploading.",
       validation: fileSizeValidation,
     }),
-    defineField({
-      name: "fallbackImage",
-      title: "Fallback Image",
-      type: "image",
-      options: { hotspot: true },
-      description: "Shown while video loads or if video fails",
-    }),
   ],
   preview: {
     select: { title: "title" },

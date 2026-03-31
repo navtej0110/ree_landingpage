@@ -11,7 +11,6 @@ export const defaultSiteSettings = {
 export const defaultHeroVideo = {
   desktopVideoUrl: "/ree_mainvideo.mp4",
   mobileVideoUrl: "/ree_mobileview.mp4",
-  fallbackImage: null,
 };
 
 export const defaultImages = {

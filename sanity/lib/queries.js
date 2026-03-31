@@ -11,8 +11,7 @@ export const SITE_SETTINGS_QUERY = `*[_type == "siteSettings"][0]{
 export const HERO_VIDEO_QUERY = `*[_type == "heroVideo"] | order(_updatedAt desc) [0]{
   title,
   "desktopVideoUrl": desktopVideo.asset->url,
-  "mobileVideoUrl": mobileVideo.asset->url,
-  fallbackImage
+  "mobileVideoUrl": mobileVideo.asset->url
 }`;
 
 export const PAGE_IMAGES_QUERY = `*[_type == "pageImages"]{
