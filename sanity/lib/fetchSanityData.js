@@ -4,6 +4,9 @@ import {
   HERO_VIDEO_QUERY,
   PAGE_IMAGES_QUERY,
   PAGE_FONTS_QUERY,
+  HOME_CONTENT_QUERY,
+  PRICING_CONTENT_QUERY,
+  SHARED_CONTENT_QUERY,
 } from "./queries";
 import {
   defaultSiteSettings,
@@ -15,13 +18,23 @@ import {
 // Called from server components (layout/page), not from the browser
 export async function fetchSanityData() {
   try {
-    const [settingsData, videoData, imagesData, pageFontsData] =
-      await Promise.all([
-        client.fetch(SITE_SETTINGS_QUERY).catch(() => null),
-        client.fetch(HERO_VIDEO_QUERY).catch(() => null),
-        client.fetch(PAGE_IMAGES_QUERY).catch(() => null),
-        client.fetch(PAGE_FONTS_QUERY).catch(() => null),
-      ]);
+    const [
+      settingsData,
+      videoData,
+      imagesData,
+      pageFontsData,
+      homeContentData,
+      pricingContentData,
+      sharedContentData,
+    ] = await Promise.all([
+      client.fetch(SITE_SETTINGS_QUERY).catch(() => null),
+      client.fetch(HERO_VIDEO_QUERY).catch(() => null),
+      client.fetch(PAGE_IMAGES_QUERY).catch(() => null),
+      client.fetch(PAGE_FONTS_QUERY).catch(() => null),
+      client.fetch(HOME_CONTENT_QUERY).catch(() => null),
+      client.fetch(PRICING_CONTENT_QUERY).catch(() => null),
+      client.fetch(SHARED_CONTENT_QUERY).catch(() => null),
+    ]);
 
     // Process settings
     const settings = settingsData
@@ -73,15 +86,27 @@ export async function fetchSanityData() {
       });
     }
 
-    return { settings, logoUrl, video, images, pageFonts, ready: true };
+    return {
+      settings,
+      logoUrl,
+      video,
+      images,
+      pageFonts,
+      homeContent: homeContentData || null,
+      pricingContent: pricingContentData || null,
+      sharedContent: sharedContentData || null,
+      ready: true,
+    };
   } catch {
-    // Sanity not configured — return all defaults
     return {
       settings: defaultSiteSettings,
       logoUrl: "/Icons/reelogo.png",
       video: defaultHeroVideo,
       images: defaultImages,
       pageFonts: {},
+      homeContent: null,
+      pricingContent: null,
+      sharedContent: null,
       ready: true,
     };
   }

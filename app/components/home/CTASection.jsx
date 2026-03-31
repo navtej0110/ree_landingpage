@@ -1,11 +1,12 @@
 "use client";
 
 import { Phone, Mail } from "lucide-react";
-import { useSanityContent } from "../SanityProvider";
+import { useSanityContent, t } from "../SanityProvider";
 
 const CTASection = () => {
-  const { images } = useSanityContent();
+  const { images, homeContent } = useSanityContent();
   const founderImg = images["cta-founder"] || { src: "/Icons/mia_sev.png", alt: "mia sev" };
+
   return (
     <section className="py-[40px] sm:py-[56px] px-[16px] sm:px-[24px] md:px-[40px] lg:px-[64px] xl:px-[24px]">
       <div className="max-w-[1280px] mx-auto">
@@ -14,14 +15,14 @@ const CTASection = () => {
             {/* Left */}
             <div className="flex-1 flex flex-col justify-between md:pr-[40px] py-[24px] sm:py-[40px] md:py-[64px] lg:py-[80px]">
               <h2 className="text-[26px] sm:text-[32px] lg:text-[40px] font-normal text-black leading-[1.1] sm:leading-[1.15] lg:leading-[42px] pb-[32px] sm:pb-[40px] lg:pb-[61px]">
-                Stop doing manually what a machine can do better. Start growing.
+                {t(homeContent, "ctaHeading", "Stop doing manually what a machine can do better. Start growing.")}
               </h2>
               <div className="flex items-center gap-[12px] sm:gap-[16px] flex-wrap">
                 <button className="gradient-btn py-[12px] px-[28px] sm:px-[35px] rounded-[35px] text-white leading-[18px] font-medium cursor-pointer text-[14px] sm:text-[16px]">
-                  Book a free audit →
+                  {t(homeContent, "ctaPrimary", "Book a free audit →")}
                 </button>
                 <button className="bg-[#E6E6E6] py-[12px] px-[28px] sm:px-[35px] rounded-[35px] text-[#414141] leading-[18px] font-medium cursor-pointer text-[14px] sm:text-[16px]">
-                  Try tool free
+                  {t(homeContent, "ctaSecondary", "Try tool free")}
                 </button>
               </div>
             </div>
@@ -34,36 +35,24 @@ const CTASection = () => {
             <div className="flex-1 flex flex-col justify-between md:pl-[40px] gap-[24px] py-[24px] sm:py-[40px] md:py-[64px] lg:py-[80px]">
               <div className="flex gap-[12px] sm:gap-[16px]">
                 <div className="h-[100px] w-[95px] sm:h-[120px] sm:w-[110px] lg:h-[137px] lg:w-[131px] flex-shrink-0 rounded-[20px] overflow-hidden">
-                  <img
-                    src={founderImg.src}
-                    alt={founderImg.alt}
-                    className="w-full h-full object-cover"
-                  />
+                  <img src={founderImg.src} alt={founderImg.alt} className="w-full h-full object-cover" />
                 </div>
                 <div className="flex-1 sm:w-[70%]">
                   <p className="text-[17px] sm:text-[20px] lg:text-[25px] leading-[1.4] sm:leading-[1.4] lg:leading-[35px] italic text-[#414141]">
-                    &quot;We built these tools because we needed them ourselves.
-                    Now we&apos;re sharing them with retailers who want to grow
-                    without burning out.&quot;
+                    &quot;{t(homeContent, "ctaQuote", "We built these tools because we needed them ourselves. Now we're sharing them with retailers who want to grow without burning out.")}&quot;
                   </p>
                   <p className="text-[17px] sm:text-[20px] lg:text-[25px] leading-[1.4] lg:leading-[35px] font-bold text-[#414141]">
-                    — Founding Team
+                    {t(homeContent, "ctaQuoteAttribution", "— Founding Team")}
                   </p>
 
                   <div className="pt-[24px] sm:pt-[30px] lg:pt-[37px] flex flex-col gap-[8px]">
                     <div className="flex items-center gap-[10px] leading-[18px] text-[#414141] text-[14px] sm:text-[16px]">
-                      <Phone
-                        size={15}
-                        className="text-[#414141] flex-shrink-0"
-                      />
-                      <span>+000 000 0000</span>
+                      <Phone size={15} className="text-[#414141] flex-shrink-0" />
+                      <span>{t(homeContent, "ctaPhone", "+000 000 0000")}</span>
                     </div>
                     <div className="flex items-center gap-[10px] text-[#414141] text-[13px] sm:text-[14px]">
-                      <Mail
-                        size={15}
-                        className="text-[#414141] flex-shrink-0"
-                      />
-                      <span>hello@ree.com</span>
+                      <Mail size={15} className="text-[#414141] flex-shrink-0" />
+                      <span>{t(homeContent, "ctaEmail", "hello@ree.com")}</span>
                     </div>
                   </div>
                 </div>

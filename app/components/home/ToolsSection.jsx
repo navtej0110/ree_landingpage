@@ -4,7 +4,7 @@ import { motion, useInView } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
 import Particles, { initParticlesEngine } from "@tsparticles/react";
 import { loadSlim } from "@tsparticles/slim";
-import { useSanityContent } from "../SanityProvider";
+import { useSanityContent, t } from "../SanityProvider";
 
 const RevealCard = ({ children, index, className = "" }) => {
   const ref = useRef(null);
@@ -40,7 +40,7 @@ const PhoneMockup = ({ className = "", imageSrc, imageAlt }) => (
 );
 
 const ToolsSection = () => {
-  const { images } = useSanityContent();
+  const { images, homeContent } = useSanityContent();
   const mockupImg = images["tools-mockup"] || { src: "https://images.unsplash.com/photo-1558769132-cb1aea458c5e?w=600&q=80", alt: "App preview" };
   const [ready, setReady] = useState(false);
 
@@ -108,15 +108,13 @@ const ToolsSection = () => {
       <div className="max-w-[1040px] mx-auto relative z-10">
         <div className="text-center mb-[48px]">
           <p className="text-[20px] font-medium leading-[40px] text-white">
-            OUR TOOLS
+            {t(homeContent, "toolsLabel", "OUR TOOLS")}
           </p>
           <h2 className="text-white text-[30px] sm:text-[36px] md:text-[42px] font-bold leading-tight mb-[16px]">
-            Ready to deploy. Proven in the field.
+            {t(homeContent, "toolsHeading", "Ready to deploy. Proven in the field.")}
           </h2>
           <p className="text-[18px] text-white leading-[24px]">
-            Tools can be standalone or part of our consulting service.
-            <br className="hidden sm:block" />
-            Choose what works best for you.
+            {t(homeContent, "toolsSubheading", "Tools can be standalone or part of our consulting service. Choose what works best for you.")}
           </p>
         </div>
 

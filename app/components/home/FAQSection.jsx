@@ -2,8 +2,9 @@
 
 import { useState } from "react";
 import { ChevronDown } from "lucide-react";
+import { useSanityContent, t } from "../SanityProvider";
 
-const faqs = [
+const DEFAULT_FAQS = [
   {
     question: "WHY USE YOU IF WE ALREADY HAVE TOOLS?",
     answer: "Most tools solve one problem. We connect everything — your POS, webstore, inventory, and team workflows — into one automated system. We also handle the gaps your current tools leave behind.",
@@ -35,8 +36,11 @@ const faqs = [
 ];
 
 const FAQSection = () => {
+  const { homeContent } = useSanityContent();
   const [openIndex, setOpenIndex] = useState(null);
   const toggle = (i) => setOpenIndex(openIndex === i ? null : i);
+
+  const faqs = homeContent?.faqItems?.length > 0 ? homeContent.faqItems : DEFAULT_FAQS;
 
   return (
     <section
@@ -45,14 +49,13 @@ const FAQSection = () => {
       style={{ background: "radial-gradient(ellipse at center, #3d0a0a 0%, #1a0404 50%, #0d0101 100%)" }}
     >
       <div className="max-w-[896px] mx-auto">
-
         <div className="text-center mb-[40px]">
-          <h2
-            className="text-[40px] font-bold leading-[43px] text-white"
-          >
-            FAQ
+          <h2 className="text-[40px] font-bold leading-[43px] text-white">
+            {t(homeContent, "faqHeading", "FAQ")}
           </h2>
-          <p className="text-[18px] pt-[12px] font-medium text-white">Common questions answered</p>
+          <p className="text-[18px] pt-[12px] font-medium text-white">
+            {t(homeContent, "faqSubheading", "Common questions answered")}
+          </p>
         </div>
 
         <div className="flex flex-col gap-[20px]">
@@ -86,7 +89,6 @@ const FAQSection = () => {
             </div>
           ))}
         </div>
-
       </div>
     </section>
   );

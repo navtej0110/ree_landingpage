@@ -65,11 +65,19 @@ const ProblemCarousel = () => {
   const { images } = useSanityContent();
   const scrollRef = useRef(null);
 
-  // Merge Sanity images into slides
+  const { homeContent } = useSanityContent();
+
+  // Merge Sanity text + images into slides
   const slides = defaultSlides.map((slide, idx) => {
     const key = `carousel-${idx + 1}`;
     const sanityImg = images[key];
-    return sanityImg ? { ...slide, img: sanityImg.src } : slide;
+    const sanityText = homeContent?.problems?.[idx];
+    return {
+      ...slide,
+      title: sanityText?.title || slide.title,
+      desc: sanityText?.desc || slide.desc,
+      img: sanityImg?.src || slide.img,
+    };
   });
 
   useEffect(() => {

@@ -3,14 +3,20 @@ import { structureTool } from "sanity/structure";
 import { visionTool } from "@sanity/vision";
 import { schemaTypes } from "./sanity/schemas";
 
-// Custom structure: Site Settings and Hero Video are singletons (only one document each)
-const singletonTypes = ["siteSettings", "heroVideo"];
+// Singletons — only one document of each type
+const singletonTypes = [
+  "siteSettings",
+  "heroVideo",
+  "homeContent",
+  "pricingContent",
+  "sharedContent",
+];
 
 const structure = (S) =>
   S.list()
     .title("Content")
     .items([
-      // Site Settings — singleton
+      // ── Site-wide ──
       S.listItem()
         .title("Site Settings")
         .id("siteSettings")
@@ -20,8 +26,6 @@ const structure = (S) =>
             .documentId("siteSettings")
             .title("Site Settings")
         ),
-
-      // Hero Video — singleton
       S.listItem()
         .title("Hero Video")
         .id("heroVideo")
@@ -31,13 +35,42 @@ const structure = (S) =>
             .documentId("heroVideo")
             .title("Hero Video")
         ),
+      S.listItem()
+        .title("Header & Footer")
+        .id("sharedContent")
+        .child(
+          S.document()
+            .schemaType("sharedContent")
+            .documentId("sharedContent")
+            .title("Header & Footer Content")
+        ),
 
       S.divider(),
 
-      // Page Images — list (multiple documents)
-      S.documentTypeListItem("pageImages").title("Page Images"),
+      // ── Page Content ──
+      S.listItem()
+        .title("Home Page Content")
+        .id("homeContent")
+        .child(
+          S.document()
+            .schemaType("homeContent")
+            .documentId("homeContent")
+            .title("Home Page Content")
+        ),
+      S.listItem()
+        .title("Pricing Page Content")
+        .id("pricingContent")
+        .child(
+          S.document()
+            .schemaType("pricingContent")
+            .documentId("pricingContent")
+            .title("Pricing Page Content")
+        ),
 
-      // Page Fonts — list (one per page)
+      S.divider(),
+
+      // ── Media ──
+      S.documentTypeListItem("pageImages").title("Page Images"),
       S.documentTypeListItem("pageFont").title("Page Fonts"),
     ]);
 
@@ -47,15 +80,12 @@ export default defineConfig({
 
   projectId: process.env.NEXT_PUBLIC_SANITY_PROJECT_ID || "your-project-id",
   dataset: process.env.NEXT_PUBLIC_SANITY_DATASET || "production",
+  basePath: "/studio",
 
-  plugins: [
-    structureTool({ structure }),
-    visionTool(),
-  ],
+  plugins: [structureTool({ structure }), visionTool()],
 
   schema: {
     types: schemaTypes,
-    // Prevent singletons from appearing in "Create new" menu
     templates: (templates) =>
       templates.filter(
         ({ schemaType }) => !singletonTypes.includes(schemaType)
@@ -63,7 +93,6 @@ export default defineConfig({
   },
 
   document: {
-    // Prevent singletons from being duplicated or deleted
     actions: (input, context) => {
       if (singletonTypes.includes(context.schemaType)) {
         return input.filter(

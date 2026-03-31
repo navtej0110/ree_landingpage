@@ -1,46 +1,48 @@
-import { Search, Lightbulb, Rocket, BadgeCheck } from "lucide-react";
+"use client";
 
-const steps = [
+import { Search, Lightbulb, Rocket } from "lucide-react";
+import { useSanityContent, t } from "../SanityProvider";
+
+const DEFAULT_STEPS = [
   {
-    step: "Step 1",
+    label: "Step 1",
     title: "Audit",
-    desc: "We map manual work and lost time. We show the cost in time and money.",
+    description: "We map manual work and lost time. We show the cost in time and money.",
     deliverable: "Automation opportunity map.",
-    icon: <Search size={25} className="text-purple-500" />,
   },
   {
-    step: "Step 2",
+    label: "Step 2",
     title: "Recommend",
-    desc: "We design the right automation setup. Ready tools when possible. Custom builds if needed.",
+    description: "We design the right automation setup. Ready tools when possible. Custom builds if needed.",
     deliverable: "Custom roadmap.",
-    icon: <Lightbulb size={25} className="text-purple-500" />,
   },
   {
-    step: "Step 3",
+    label: "Step 3",
     title: "Build & Deploy",
-    desc: "We implement everything.",
+    description: "We implement everything.",
     deliverable: "Live automations.",
-    icon: <Rocket size={25} className="text-purple-500" />,
   },
-  // {
-  //   step: "Step 4",
-  //   title: "Guarantee",
-  //   desc: "We train your team and measure results. If we promise 60 hours saved — we verify it.",
-  //   deliverable: "Performance report + support.",
-  //   icon: <BadgeCheck size={25} className="text-purple-500" />,
-  // },
+];
+
+const ICONS = [
+  <Search key="s" size={25} className="text-purple-500" />,
+  <Lightbulb key="l" size={25} className="text-purple-500" />,
+  <Rocket key="r" size={25} className="text-purple-500" />,
 ];
 
 export default function ProcessSection() {
+  const { homeContent } = useSanityContent();
+  const steps = homeContent?.processSteps?.length > 0 ? homeContent.processSteps : DEFAULT_STEPS;
+
   return (
     <section className="bg-white py-[48px] sm:py-[64px] md:py-[96px] px-[16px] sm:px-[24px] lg:mx-[64px] lg:my-[80px]">
       <div className="w-full max-w-[95%] sm:max-w-[85%] md:max-w-[75%] lg:max-w-[77%] mx-auto text-center">
         <h2 className="text-[26px] sm:text-[32px] md:text-[40px] font-bold leading-[32px] sm:leading-[38px] md:leading-[43px] text-[#252525]">
-          We come in. We find it. We fix it.
+          {t(homeContent, "processHeading", "We come in. We find it. We fix it.")}
         </h2>
 
         <p className="text-[15px] sm:text-[16px] md:text-[18px] font-medium mt-[12px] leading-[24px] sm:leading-[27px] md:leading-[30px] text-[#434343]">
-          Four steps. One team. Your operations transformed.
+          {t(homeContent, "processSubheading", "Four steps. One team. Your operations transformed.")}
         </p>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-[16px] sm:gap-[20px] mt-[40px] sm:mt-[48px]">
@@ -51,16 +53,16 @@ export default function ProcessSection() {
             >
               <div>
                 <div className="w-[60px] h-[60px] flex items-center justify-center rounded-[15px] bg-purple-50 mb-[16px]">
-                  {item.icon}
+                  {ICONS[index] || ICONS[0]}
                 </div>
                 <p className="gradient-text text-[16px] font-medium">
-                  {item.step}
+                  {item.label || `Step ${index + 1}`}
                 </p>
                 <h3 className="text-[18px] mt-[8px]">{item.title}</h3>
               </div>
               <div className="mt-[23px]">
                 <p className="text-[16px] leading-[18px] text-[#252525] h-[70px] overflow-hidden">
-                  {item.desc}
+                  {item.description || item.desc}
                 </p>
                 <div className="border-t border-[#D9D9D9] mt-[16px] pt-[16px] text-[14px]">
                   <span className="font-semibold">Deliverable:</span>{" "}
@@ -74,12 +76,9 @@ export default function ProcessSection() {
         <div className="mt-[40px] sm:mt-[48px] w-full">
           <div
             className="border-l-8 border-purple-500 px-[20px] sm:px-[32px] py-[16px] sm:py-[20px] text-gray-600 italic text-[16px] sm:text-[18px] font-medium w-full text-left"
-            style={{
-              background: "linear-gradient(to right, #f5f3ff, #ffffff)",
-            }}
+            style={{ background: "linear-gradient(to right, #f5f3ff, #ffffff)" }}
           >
-            &quot;If we don&apos;t hit the agreed target — we return until we
-            do.&quot;
+            &quot;{t(homeContent, "processQuote", "If we don't hit the agreed target — we return until we do.")}&quot;
           </div>
         </div>
 

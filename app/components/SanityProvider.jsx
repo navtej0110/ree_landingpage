@@ -13,6 +13,9 @@ const SanityContext = createContext({
   video: defaultHeroVideo,
   images: defaultImages,
   pageFonts: {},
+  homeContent: null,
+  pricingContent: null,
+  sharedContent: null,
   ready: false,
 });
 
@@ -20,7 +23,12 @@ export function useSanityContent() {
   return useContext(SanityContext);
 }
 
-// Receives pre-fetched data from the server layout — no client-side API calls
+// Helper to get text with fallback
+// Usage: t(homeContent, "heroHeadline", "DEFAULT TEXT")
+export function t(content, field, fallback) {
+  return content?.[field] || fallback;
+}
+
 export default function SanityProvider({ data, children }) {
   const value = data || {
     settings: defaultSiteSettings,
@@ -28,6 +36,9 @@ export default function SanityProvider({ data, children }) {
     video: defaultHeroVideo,
     images: defaultImages,
     pageFonts: {},
+    homeContent: null,
+    pricingContent: null,
+    sharedContent: null,
     ready: true,
   };
 
